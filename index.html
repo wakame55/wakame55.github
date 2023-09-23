@@ -1,43 +1,4 @@
-import os
-import json
-
-# リソースパックフォルダのパス
-resource_pack_folder = 'D:\\minecraft_mod_folder_in_folder\\instances\\1.20.1fabric\\resourcepacks\\CMDv5\\assets\\minecraft\\models\\item'
-
-# 出力HTMLファイル名
-output_filename = 'resource_pack_info.html'
-
-# HTMLテーブルの中身を生成
-table_data = []
-
-# 重複をチェックするためのセット
-seen_layer0 = set()
-
-for filename in os.listdir(resource_pack_folder):
-    if filename.endswith('.json'):
-        with open(os.path.join(resource_pack_folder, filename), 'r', encoding='utf-8') as json_file:
-            data = json.load(json_file)
-            overrides = data.get('overrides', [])
-            for override in overrides:
-                custom_model_data = override.get('predicate', {}).get('custom_model_data', 'N/A')
-                new_model_filename = override.get('model', 'N/A')
-                layer0 = data.get('textures', {}).get('layer0', 'N/A')
-                # "minecraft:item/"を削除して新しいlayer0を生成
-                new_layer0 = layer0.replace('minecraft:item/', '')
-                
-                # 同じlayer0値の行をグループ化
-                if new_layer0 not in seen_layer0:
-                    seen_layer0.add(new_layer0)
-                    table_data.append((new_layer0, []))
-                
-                # 対応する行にデータを追加
-                for entry in table_data:
-                    if entry[0] == new_layer0:
-                        entry[1].append((new_model_filename, custom_model_data))
-
-# HTMLファイルにテーブルデータを挿入
-with open(output_filename, 'w', encoding='utf-8') as output_file:
-    output_file.write(f"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -47,35 +8,35 @@ with open(output_filename, 'w', encoding='utf-8') as output_file:
 <body>
 <style>
     /* スタイルを追加 */
-    body {{
+    body {
         font-family: Arial, sans-serif;
         background-color: #f0f0f0;
         margin: 0;
         padding: 0;
-    }}
-    h1 {{
+    }
+    h1 {
         text-align: center;
         background-color: #3498db;
         color: #fff;
         padding: 20px 0;
         margin: 0;
-    }}
-    .resource-table {{
+    }
+    .resource-table {
         width: 80%;
         margin: 20px auto;
         border-collapse: collapse;
         background-color: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }}
-    .resource-table th, .resource-table td {{
+    }
+    .resource-table th, .resource-table td {
         padding: 12px 15px;
         text-align: left;
         border-bottom: 1px solid #ddd;
-    }}
-    .resource-table th {{
+    }
+    .resource-table th {
         background-color: #3498db;
         color: #fff;
-    }}
+    }
 </style>
 <h1>Minecraft リソースパック情報</h1>
 <table class="resource-table">
@@ -87,18 +48,47 @@ with open(output_filename, 'w', encoding='utf-8') as output_file:
     </tr>
     </thead>
     <tbody>
-    """)
-    
-    # グループ化された行をテーブルに挿入
-    for entry in table_data:
-        layer0, data_list = entry
-        output_file.write(f"<tr class='group'><td colspan='3'>{layer0}</td></tr>\n")
-        for data in data_list:
-            output_file.write(f"<tr><td></td><td>{data[0]}</td><td>{data[1]}</td></tr>\n")
-    
-    output_file.write("""</tbody>
+    <tr class='group'><td colspan='3'>blaze_rod</td></tr>
+<tr><td></td><td>minecraft:item/blazewand</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>carrot_on_a_stick</td></tr>
+<tr><td></td><td>minecraft:item/blue_wand</td><td>1</td></tr>
+<tr><td></td><td>minecraft:item/branch</td><td>2</td></tr>
+<tr><td></td><td>minecraft:item/tenikessyou</td><td>3</td></tr>
+<tr><td></td><td>minecraft:item/kaihukukessyou</td><td>4</td></tr>
+<tr><td></td><td>minecraft:item/aobaranoken</td><td>5</td></tr>
+<tr><td></td><td>minecraft:item/</td><td>6</td></tr>
+<tr class='group'><td colspan='3'>chiseled_nether_bricks</td></tr>
+<tr><td></td><td>minecraft:item/frenzy_boar</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>iron_boots</td></tr>
+<tr><td></td><td>minecraft:item/steel_boots</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>iron_chestplate</td></tr>
+<tr><td></td><td>minecraft:item/steel_chestplate</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>iron_helmet</td></tr>
+<tr><td></td><td>minecraft:item/steel_helmet</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>iron_ingot</td></tr>
+<tr><td></td><td>minecraft:item/steel_ingot</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>iron_leggings</td></tr>
+<tr><td></td><td>minecraft:item/steel_leggings</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>iron_sword</td></tr>
+<tr><td></td><td>minecraft:item/katana</td><td>1</td></tr>
+<tr><td></td><td>minecraft:item/drows</td><td>2</td></tr>
+<tr><td></td><td>minecraft:item/steel_sword</td><td>3</td></tr>
+<tr class='group'><td colspan='3'>leather</td></tr>
+<tr><td></td><td>minecraft:item/inosisi_kawa</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>netherite_sword</td></tr>
+<tr><td></td><td>minecraft:item/elishdata</td><td>1</td></tr>
+<tr><td></td><td>minecraft:item/elishdata_3d</td><td>2</td></tr>
+<tr class='group'><td colspan='3'>porkchop</td></tr>
+<tr><td></td><td>minecraft:item/inosisi_niku</td><td>1</td></tr>
+<tr class='group'><td colspan='3'>stick</td></tr>
+<tr><td></td><td>minecraft:item/wand</td><td>1</td></tr>
+<tr><td></td><td>minecraft:item/stickywand</td><td>2</td></tr>
+<tr><td></td><td>minecraft:item/cmd_10</td><td>10</td></tr>
+<tr><td></td><td>minecraft:item/cmd_11</td><td>11</td></tr>
+<tr class='group'><td colspan='3'>zombie_head</td></tr>
+<tr><td></td><td>minecraft:item/elishdata_3d</td><td>1</td></tr>
+<tr><td></td><td>minecraft:item/frenzy_boar</td><td>2</td></tr>
+</tbody>
 </table>
 </body>
-</html>""")
-
-print(f"Data has been written to {output_filename}.")
+</html>
